@@ -93,4 +93,12 @@
         android:hint="Enter a task"
         android:text=" " />
 
+    <AnalogClock
+        android:id="@+id/analogClock1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/button1"
+        android:layout_below="@+id/editText3"
+        android:layout_marginTop="71dp" />
+
 </RelativeLayout>
