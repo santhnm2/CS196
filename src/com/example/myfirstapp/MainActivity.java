@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+	public static ArrayList<String> tasks = new ArrayList<String>();
+	public String mainList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,33 +29,59 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+	public void addTask(View view){
+		EditText task = (EditText) findViewById(R.id.textBox);
+		String message = "test";
+		message = (task.getText().toString());
+		tasks.add(message);
+		task.setText("");
+		TextView response = (TextView) findViewById(R.id.response);
+		response.setText("Task added!");
+
+		
+	}
+	public void removeTasks(View view){
+		Intent intent = new Intent(this, RemoveOption.class);
+		mainList = "";
+		for(String s : tasks)
+			mainList+=s+"\n";
+		intent.putExtra(EXTRA_MESSAGE, mainList);
+		
+		startActivity(intent);
+	}
 	public void sendMessage(View view)
 	{
 		Intent intent = new Intent(this, DisplayMessageActivity.class);
+		mainList = "";
+		for(String s : tasks)
+		{
+			mainList+=s+"\n";
+		}
+		intent.putExtra(EXTRA_MESSAGE, mainList);
 		
-		ArrayList<EditText> tasks = new ArrayList<EditText>();
+		startActivity(intent);
+		
+		/* ArrayList<EditText> tasks = new ArrayList<EditText>();
 		tasks.add((EditText) findViewById(R.id.editText1));
 		tasks.add((EditText) findViewById(R.id.editText2));
 		tasks.add((EditText) findViewById(R.id.editText3));
-		/*EditText editText1 = (EditText) findViewById(R.id.editText1);
+		EditText editText1 = (EditText) findViewById(R.id.editText1);
 		
 		EditText editText2 = (EditText) findViewById(R.id.editText2);
 		
 		EditText editText3 = (EditText) findViewById(R.id.editText3);
 		
-		//String message = "";
+		String message = "";
 		
-		//try
-		//{
+		try
+		{
 		
 		
-			String message = (editText1.getText().toString() + "\n" + editText2.getText().toString() + "\n" + editText3.getText().toString());
-		/*}
+		}
 		catch (NullPointerException e)
 		{
 			message = "Nothing to do!";
-		}*/
+		}
 		
 		String message = "";
 		for (int i = 0; i < tasks.size(); i++)
@@ -67,10 +96,7 @@ public class MainActivity extends Activity {
 		{
 			message = "Nothing to do!";
 		}
-		
-		intent.putExtra(EXTRA_MESSAGE, message);
-		
-		startActivity(intent);
+		*/
 	
 	}
 
