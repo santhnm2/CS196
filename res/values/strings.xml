@@ -11,5 +11,6 @@
     <string name="hint">Enter your task</string>
     <string name="remove_label">Remove tasks</string>
     <string name="title_activity_remove_option">RemoveOption</string>
+    <string name="deadline">Enter deadline date</string>
 
 </resources>

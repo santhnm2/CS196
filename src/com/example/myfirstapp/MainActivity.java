@@ -14,6 +14,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -53,6 +54,10 @@ public class MainActivity extends Activity {
 		}
 		else{
 			response.setText("Task added!");
+			SeekBar prioritySet = (SeekBar)findViewById(R.id.seekBar1);
+			int priority = prioritySet.getProgress();
+			prioritySet.setProgress(0);
+			
 			tasks.add(message);
 		}
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
