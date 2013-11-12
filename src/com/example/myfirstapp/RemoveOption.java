@@ -24,6 +24,7 @@ public class RemoveOption extends Activity {
 	public Activity thisActivity = this;
 	private LinearLayout ll;
 	private CheckBox aGlobalBox;
+	private CheckBox box;
 	private int index;
 
 	@Override
@@ -39,25 +40,25 @@ public class RemoveOption extends Activity {
 		tasks = MainActivity.getList();
 		aGlobalBox = new CheckBox(getApplicationContext());
 		for (index = 0; index < tasks.size(); index++) {
-			CheckBox cb = new CheckBox(getApplicationContext());
-			cb.setText(tasks.get(index));
-			cb.setTextColor(Color.BLACK);
-			cb.setTextSize(40);
-//			cb.setOnClickListener(new OnClickListener() {
-//				public void onClick(View v) {
-//					if (((CheckBox) v).isChecked()) {
-//						v.getId();
-//						ll.removeView(findViewById(v.getId()));
-//						//RemoveOption.removeTasks(index);
-//						//tasks.remove(index);
-//						//MainActivity.updateTasks(tasks);
-//					}
-//				}
-//			});
+			box = new CheckBox(getApplicationContext());
+			box.setText(tasks.get(index));
+			box.setTextColor(Color.BLACK);
+			box.setTextSize(40);
+			// cb.setOnClickListener(new OnClickListener() {
+			// public void onClick(View v) {
+			// if (((CheckBox) v).isChecked()) {
+			// v.getId();
+			// ll.removeView(findViewById(v.getId()));
+			// //RemoveOption.removeTasks(index);
+			// //tasks.remove(index);
+			// //MainActivity.updateTasks(tasks);
+			// }
+			// }
+			// });
 
-			boxes[index] = cb;
+			boxes[index] = box;
 			size++;
-			ll.addView(cb);
+			ll.addView(box);
 		}
 		Button removeButton = new Button(this);
 		removeButton.setText("Remove tasks");
@@ -89,21 +90,21 @@ public class RemoveOption extends Activity {
 	}
 
 	public void removeTasks(View view) {
-		//tasks.remove(i);
-		//MainActivity.updateTasks(tasks);
-		
-		 Intent intent = new Intent(this, MainActivity.class);
-		for (int i = 0; i < size; i++) {
-			CheckBox thisBox = boxes[i];
-			System.out.println(thisBox);
-			if (thisBox != null && ((CheckBox) thisBox).isChecked()) {
-				// ll.removeView(boxes[i]);
-				// boxes[i] = null;
-				// tasks.remove(i);
-				// size--;
-			}
-		}
-		 MainActivity.updateTasks(tasks);
+		// tasks.remove(i);
+		// MainActivity.updateTasks(tasks);
+
+		Intent intent = new Intent(this, MainActivity.class);
+		 for (int i = 0; i < 1; i++) {
+		// CheckBox thisBox = boxes[i];
+		// System.out.println(thisBox);
+		// if (thisBox != null && ((CheckBox) thisBox).isChecked()) {
+		ll.removeView(boxes[index]);
+		 boxes[i] = null;
+		 tasks.remove(i);
+		 //size--;
+		 }
+
+		MainActivity.updateTasks(tasks);
 		startActivity(intent);
 	}
 }
