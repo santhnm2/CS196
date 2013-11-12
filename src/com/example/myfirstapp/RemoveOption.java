@@ -24,7 +24,7 @@ public class RemoveOption extends Activity {
 	public Activity thisActivity = this;
 	private LinearLayout ll;
 	private CheckBox aGlobalBox;
-	private CheckBox box;
+	// private CheckBox box;
 	private int index;
 
 	@Override
@@ -40,6 +40,7 @@ public class RemoveOption extends Activity {
 		tasks = MainActivity.getList();
 		aGlobalBox = new CheckBox(getApplicationContext());
 		for (index = 0; index < tasks.size(); index++) {
+			CheckBox box;
 			box = new CheckBox(getApplicationContext());
 			box.setText(tasks.get(index));
 			box.setTextColor(Color.BLACK);
@@ -94,15 +95,21 @@ public class RemoveOption extends Activity {
 		// MainActivity.updateTasks(tasks);
 
 		Intent intent = new Intent(this, MainActivity.class);
-		 for (int i = 0; i < 1; i++) {
-		// CheckBox thisBox = boxes[i];
-		// System.out.println(thisBox);
-		// if (thisBox != null && ((CheckBox) thisBox).isChecked()) {
-		ll.removeView(boxes[index]);
-		 boxes[i] = null;
-		 tasks.remove(i);
-		 //size--;
-		 }
+		ArrayList<Integer> toRemove = new ArrayList<Integer>();
+		Object[] list = tasks.toArray();
+		for (int i = 0; i < list.length; i++) {
+			CheckBox thisBox = boxes[i];
+			// System.out.println(thisBox);
+			if (thisBox != null && ((CheckBox) thisBox).isChecked()) {
+				String temp = (String)list[i];
+				tasks.remove(temp);
+				ll.removeView(boxes[i]);
+				boxes[i] = null;
+				
+			}
+		}
+		
+		// 
 
 		MainActivity.updateTasks(tasks);
 		startActivity(intent);
