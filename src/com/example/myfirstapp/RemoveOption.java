@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 public class RemoveOption extends Activity {
 
-	static ArrayList<String> tasks;
+	static ArrayList<Task> tasks;
 	// ArrayList<CheckBox> boxes;
 	CheckBox[] boxes = new CheckBox[100];
 	int size = 0;
@@ -42,7 +42,7 @@ public class RemoveOption extends Activity {
 		for (index = 0; index < tasks.size(); index++) {
 			CheckBox box;
 			box = new CheckBox(getApplicationContext());
-			box.setText(tasks.get(index));
+			box.setText(tasks.get(index).toString());
 			box.setTextColor(Color.BLACK);
 			box.setTextSize(40);
 			// cb.setOnClickListener(new OnClickListener() {
@@ -101,8 +101,9 @@ public class RemoveOption extends Activity {
 			CheckBox thisBox = boxes[i];
 			// System.out.println(thisBox);
 			if (thisBox != null && ((CheckBox) thisBox).isChecked()) {
-				String temp = (String)list[i];
-				tasks.remove(temp);
+				Task t = (Task)list[i];
+				
+				tasks.remove(t);
 				ll.removeView(boxes[i]);
 				boxes[i] = null;
 				

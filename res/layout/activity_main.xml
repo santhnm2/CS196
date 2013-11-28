@@ -105,7 +105,7 @@
         android1:text="@string/add_button" />
 
     <EditText
-        android1:id="@+id/editText1"
+        android1:id="@+id/dateText"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:layout_alignLeft="@+id/textBox"
@@ -113,6 +113,6 @@
         android1:layout_marginTop="11dp"
         android1:ems="10"
         android1:hint="@string/deadline"
-        android1:inputType="date" />
+        android1:inputType="number" />
 
 </RelativeLayout>

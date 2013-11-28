@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-	public static ArrayList<String> tasks = new ArrayList<String>();
+	public static ArrayList<Task> tasks = new ArrayList<Task>();
 	public String mainList;
 	public Activity thisActivity = this;
 
@@ -31,7 +32,7 @@ public class MainActivity extends Activity {
 		setupUI(findViewById(R.id.parent));
 
 	}
-	public static ArrayList<String> getList(){
+	public static ArrayList<Task> getList(){
 		return tasks;
 	}
 
@@ -53,12 +54,19 @@ public class MainActivity extends Activity {
 			response.setText("No task entered: Please enter a task.");
 		}
 		else{
+			int date = -1;
 			response.setText("Task added!");
 			SeekBar prioritySet = (SeekBar)findViewById(R.id.seekBar1);
-			int priority = prioritySet.getProgress();
-			prioritySet.setProgress(0);
+			double priority = prioritySet.getProgress();
+			prioritySet.setProgress(0); 
+			EditText dateFrom = (EditText)findViewById(R.id.dateText);
+			try{
+				date = Integer.parseInt(dateFrom.getText().toString());
+			} catch (NumberFormatException e){};
+			dateFrom.setText("");
+			Task t = new Task(message, priority, date);
 			
-			tasks.add(message);
+			tasks.add(t);
 		}
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(task.getWindowToken(), 0);
@@ -68,19 +76,18 @@ public class MainActivity extends Activity {
 	public void removeTasks(View view) {
 		Intent intent = new Intent(this, RemoveOption.class);
 		mainList = "";
-		for (String s : tasks)
-			mainList += s + "\n";
+		for (Task t : tasks)
+			mainList += t.getName() + "\n";
 		intent.putExtra(EXTRA_MESSAGE, mainList);
 
 		startActivity(intent);
 	}
-
+	
 	public void sendMessage(View view) {
 		Intent intent = new Intent(this, DisplayMessageActivity.class);
 		mainList = "";
-		for (String s : tasks) {
-			mainList += s + "\n";
-		}
+		for (Task t : tasks)
+			mainList += t.toString() + "\n";
 		intent.putExtra(EXTRA_MESSAGE, mainList);
 
 		startActivity(intent);
@@ -144,7 +151,7 @@ public class MainActivity extends Activity {
 	    inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 	}
 	
-	public static void updateTasks(ArrayList<String> newTasks)
+	public static void updateTasks(ArrayList<Task> newTasks)
 	{
 		tasks = newTasks;
 	}
