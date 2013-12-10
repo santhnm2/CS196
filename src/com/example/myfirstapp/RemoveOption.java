@@ -1,7 +1,7 @@
 package com.example.myfirstapp;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.Collections;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,11 +9,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ScrollView;
 
 public class RemoveOption extends Activity {
 
@@ -31,6 +31,9 @@ public class RemoveOption extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_remove_option);
+		ScrollView scroll = new ScrollView(this);
+		scroll.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.FILL_PARENT));
 		ll = new LinearLayout(this);
 		ll.setOrientation(LinearLayout.VERTICAL);
 
@@ -38,12 +41,26 @@ public class RemoveOption extends Activity {
 
 		String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 		tasks = MainActivity.getList();
+		Collections.sort(tasks);
 		aGlobalBox = new CheckBox(getApplicationContext());
-		for (index = 0; index < tasks.size(); index++) {
+		for (index = tasks.size()-1; index >=0; index--) {
 			CheckBox box;
 			box = new CheckBox(getApplicationContext());
 			box.setText(tasks.get(index).toString());
 			box.setTextColor(Color.BLACK);
+			int color;
+			double priority = tasks.get(index).getPriority();
+			if (priority <= 20)
+				color = Color.GREEN;
+			else if (priority <= 40)
+				color = Color.rgb(100,100,255);
+			else if (priority <= 60)
+				color = Color.YELLOW;
+			else if (priority <= 80)
+				color = Color.rgb(255, 165, 0);
+			else
+				color = Color.RED;
+			box.setBackgroundColor(color);
 			box.setTextSize(40);
 			// cb.setOnClickListener(new OnClickListener() {
 			// public void onClick(View v) {
@@ -70,6 +87,7 @@ public class RemoveOption extends Activity {
 		});
 		// if(removeButton!=null)
 		ll.addView(removeButton);
+		scroll.addView(ll);
 		// else
 		// {
 		// TextView textView = new TextView(this);
@@ -77,7 +95,7 @@ public class RemoveOption extends Activity {
 		// textView.setText("button null");
 		// ll.addView(textView);
 		// }
-		setContentView(ll);
+		setContentView(scroll);
 
 		// setContentView(textView);
 		// Show the Up button in the action bar.
@@ -90,6 +108,8 @@ public class RemoveOption extends Activity {
 		return true;
 	}
 
+	
+
 	public void removeTasks(View view) {
 		// tasks.remove(i);
 		// MainActivity.updateTasks(tasks);
@@ -101,16 +121,16 @@ public class RemoveOption extends Activity {
 			CheckBox thisBox = boxes[i];
 			// System.out.println(thisBox);
 			if (thisBox != null && ((CheckBox) thisBox).isChecked()) {
-				Task t = (Task)list[i];
-				
+				Task t = (Task) list[i];
+
 				tasks.remove(t);
 				ll.removeView(boxes[i]);
 				boxes[i] = null;
-				
+
 			}
 		}
-		
-		// 
+
+		//
 
 		MainActivity.updateTasks(tasks);
 		startActivity(intent);

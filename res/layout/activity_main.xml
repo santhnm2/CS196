@@ -58,16 +58,6 @@
         android:text="" />
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="81dp"
-        android:onClick="sendMessage"
-        android:text="@string/button_view" />
-
-    <Button
         android:id="@+id/remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,16 +73,8 @@
         android1:layout_height="wrap_content"
         android1:layout_alignParentLeft="true"
         android1:layout_below="@+id/textBox"
+        android:progress="20"
         android1:layout_marginTop="37dp" />
-
-    <TextView
-        android1:id="@+id/textView2"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:layout_alignLeft="@+id/textView1"
-        android1:layout_below="@+id/textBox"
-        android1:layout_marginTop="18dp"
-        android1:text="Priority:" />
 
     <Button
         android1:id="@+id/addTask"
@@ -110,9 +92,18 @@
         android1:layout_height="wrap_content"
         android1:layout_alignLeft="@+id/textBox"
         android1:layout_below="@+id/seekBar1"
-        android1:layout_marginTop="11dp"
+        android1:layout_marginTop="12dp"
         android1:ems="10"
         android1:hint="@string/deadline"
         android1:inputType="number" />
+
+    <TextView
+        android1:id="@+id/priorityLabel"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:layout_below="@+id/textBox"
+        android1:layout_centerHorizontal="true"
+        android1:layout_marginTop="16dp"
+        android1:text="@string/priorityValue" />
 
 </RelativeLayout>
